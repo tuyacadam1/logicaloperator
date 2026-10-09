@@ -1,1 +1,342 @@
 
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100 select-none">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boolean Logic Problem Assignment (5 Problems / Student)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Security Styles & Print Protection -->
+  <style>
+    /* Prevent text selection and drag gestures */
+    * {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+
+    /* Print Protection: Hide everything when attempting to print */
+    @media print {
+      body {
+        display: none !important;
+      }
+    }
+
+    /* Blur class applied on tab focus loss or screenshot detection */
+    .security-blur {
+      filter: blur(32px) grayscale(100%);
+      pointer-events: none;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body class="h-full flex flex-col font-sans overflow-x-hidden bg-slate-950 text-slate-100">
+
+  <!-- SECURITY SHIELD OVERLAY -->
+  <div id="securityOverlay" class="fixed inset-0 bg-slate-950/95 backdrop-blur-2xl z-50 flex flex-col items-center justify-center p-6 text-center transition-all duration-200 opacity-0 pointer-events-none">
+    <div class="w-20 h-20 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-6 shadow-2xl shadow-rose-500/10">
+      <svg class="w-10 h-10 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+      </svg>
+    </div>
+    <h2 class="text-3xl font-extrabold text-white mb-2">Content Shield Active</h2>
+    <p class="text-slate-400 max-w-md text-base mb-6">
+      Screen capture detection or window focus loss was triggered. Return focus to this window to view your assigned logic expressions.
+    </p>
+    <button onclick="restoreFocus()" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-lg shadow-lg shadow-indigo-600/30 transition-all cursor-pointer">
+      Click to Resume View
+    </button>
+  </div>
+
+  <!-- MAIN WRAPPER -->
+  <div id="mainContent" class="flex-1 flex flex-col transition-all duration-300">
+    
+    <!-- HEADER NAVBAR -->
+    <header class="bg-slate-900/80 border-b border-slate-800 backdrop-blur sticky top-0 z-30 px-4 py-3 sm:px-8 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="p-2 bg-indigo-600/20 border border-indigo-500/30 rounded-lg text-indigo-400">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg text-slate-100 tracking-tight">Boolean Logic Assignment (5 Problems / Student)</h1>
+          <p class="text-xs text-slate-400">Read-Only Viewer • Search Your Name to Find Your 5 Assigned Items</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-2 bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-xs font-mono text-slate-400" id="sessionTag">Session ID: Initializing...</span>
+      </div>
+    </header>
+
+    <!-- WORKSPACE BODY -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+
+      <!-- TOP INSTRUCTIONS -->
+      <section class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 sm:p-6 shadow-xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <h2 class="text-lg font-bold text-slate-200 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Submission Guidelines
+        </h2>
+        <ul class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-slate-300">
+          <li class="bg-slate-950/50 p-3 rounded-lg border border-slate-800/50 flex gap-2.5">
+            <span class="font-bold text-indigo-400">1.</span>
+            <span>Search your <strong>last name</strong> to view all <strong>5 assigned problems</strong> (Items 1 through 5).</span>
+          </li>
+          <li class="bg-slate-950/50 p-3 rounded-lg border border-slate-800/50 flex gap-2.5">
+            <span class="font-bold text-indigo-400">2.</span>
+            <span>Copy each expression on paper and write out step-by-step evaluations using standard precedence (<code>&amp;&amp;</code> before <code>||</code>).</span>
+          </li>
+          <li class="bg-slate-950/50 p-3 rounded-lg border border-slate-800/50 flex gap-2.5">
+            <span class="font-bold text-indigo-400">3.</span>
+            <span>State your final answer clearly as either <strong>True</strong> or <strong>False</strong> for each item.</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- SEARCH & FILTER -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="relative w-full sm:w-80">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Search student name or item #..." 
+            onkeyup="filterProblems()"
+            class="w-full bg-slate-900 border border-slate-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 outline-none transition-all"
+          />
+          <svg class="w-4 h-4 text-slate-500 absolute right-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+
+        <div class="text-xs text-slate-400 flex items-center gap-2">
+          <span class="px-2 py-1 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded">Copy Disabled</span>
+          <span class="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded">Screen Shield Active</span>
+        </div>
+      </div>
+
+      <!-- PROBLEMS GRID (215 ASSIGNED ITEMS) -->
+      <div id="problemsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-800/80 py-4 text-center text-xs text-slate-500">
+      Boolean Logic Evaluation Worksheet • Read-Only DRM Protection Active
+    </footer>
+  </div>
+
+  <script>
+    // LIST OF 43 UPDATED STUDENTS
+    const studentNames = [
+      "Gantalao", "Tapar", "Acido", "Akut", "Asilo", "Cabana", "Cabilto", "Dalogdog",
+      "Galia", "Gallogo", "Gran", "Maestrado", "Mandin", "Opeña", "Palad", "Pinagawa",
+      "Regatuna", "Saraus", "Sino", "Tapdin", "Tumala", "Virtudazo", "Alcaria", "Alog",
+      "Andrino", "Aranda", "Arnillo", "Baguio", "Benida", "Berbegal", "Cago", "Cubao",
+      "Hidalgo", "Labadan", "Manubag", "Pantojan", "Ramasola", "Sabejon", "Salise",
+      "Suico", "Tabamo", "Teatro", "Lagumbay", "Libay"
+    ];
+
+    // DETERMINISTIC EXPRESSIONS (5 VARIATIONS PER STUDENT)
+    const baseTemplates = [
+      (a,b,c,d,e,f) => `${a} >= ${b} && ${c} == ${d} || ${e} >= ${f} && ${b} == ${b}`,
+      (a,b,c,d,e,f) => `${a} < ${b} && ${c} < ${d} || ${e} == ${e} && ${f} > ${a}`,
+      (a,b,c,d,e,f) => `${a} == ${a} && ${b} > ${c} || ${d} <= ${e} && ${f} == ${b}`,
+      (a,b,c,d,e,f) => `${f} <= ${a} || ${b} == ${b} && ${c} < ${d} || ${e} == ${f}`,
+      (a,b,c,d,e,f) => `${a} > ${b} && ${c} <= ${d} || ${e} > ${f} && ${a} == ${f}`
+    ];
+
+    // GENERATE 215 TOTAL PROBLEMS (43 STUDENTS x 5 ITEMS)
+    const problemData = [];
+    let count = 1;
+
+    studentNames.forEach((student, studentIndex) => {
+      for (let item = 1; item <= 5; item++) {
+        // Seed arithmetic values deterministically based on studentIndex and item
+        const a = ((studentIndex * 3 + item * 2) % 12) + 2;
+        const b = ((studentIndex * 5 + item * 3) % 12) + 2;
+        const c = ((studentIndex * 2 + item * 4) % 12) + 2;
+        const d = ((studentIndex * 4 + item * 1) % 12) + 2;
+        const e = ((studentIndex * 7 + item * 5) % 12) + 2;
+        const f = ((studentIndex * 6 + item * 2) % 12) + 2;
+
+        const templateFn = baseTemplates[(item - 1) % baseTemplates.length];
+        const exprStr = templateFn(a,b,c,d,e,f);
+
+        problemData.push({
+          id: count++,
+          student: student,
+          itemNum: item,
+          name: `${student} (Item ${item})`,
+          expr: exprStr
+        });
+      }
+    });
+
+    // Generate Session Tag
+    const sessionId = Math.random().toString(36).substring(2, 8).toUpperCase();
+    document.getElementById('sessionTag').innerText = `Session ID: ${sessionId}`;
+
+    // RENDER EXPRESSION ON HTML5 CANVAS TO PREVENT TEXT SELECTION & DOM INSPECTION
+    function drawExpressionCanvas(canvasId, text) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+
+      ctx.clearRect(0, 0, rect.width, rect.height);
+
+      // Render expression text
+      ctx.font = '600 14px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+      ctx.fillStyle = '#38bdf8'; // Sky blue text color
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, 12, rect.height / 2);
+
+      // Dynamic Watermark
+      ctx.font = '700 10px sans-serif';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.fillText(`PROTECTED • ${sessionId}`, rect.width - 130, rect.height / 2);
+    }
+
+    // INITIALIZE & RENDER PROBLEM CARDS
+    function renderProblems() {
+      const grid = document.getElementById('problemsGrid');
+      grid.innerHTML = '';
+
+      problemData.forEach((item) => {
+        const canvasId = `canvas-prob-${item.id}`;
+
+        const card = document.createElement('div');
+        card.className = "problem-card bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg hover:border-slate-700 transition-all flex flex-col justify-between gap-3";
+        card.setAttribute('data-search', `${item.id} ${item.student} item ${item.itemNum}`.toLowerCase());
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-md bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 font-bold text-xs flex items-center justify-center">${item.id}</span>
+              <h3 class="font-bold text-slate-100 text-sm tracking-wide">${item.student}</h3>
+            </div>
+            <span class="text-[10px] font-mono bg-indigo-950/80 text-indigo-300 px-2 py-0.5 rounded border border-indigo-800/60 font-semibold">Item ${item.itemNum} of 5</span>
+          </div>
+          
+          <div class="bg-slate-950 border border-slate-800 rounded-lg p-1.5 relative overflow-hidden">
+            <canvas id="${canvasId}" class="w-full h-10 block"></canvas>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      // Render expression canvases after DOM elements are placed
+      setTimeout(() => {
+        problemData.forEach((item) => {
+          drawExpressionCanvas(`canvas-prob-${item.id}`, item.expr);
+        });
+      }, 50);
+    }
+
+    // FILTER FUNCTION
+    function filterProblems() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.problem-card');
+
+      cards.forEach(card => {
+        const matchData = card.getAttribute('data-search');
+        if (matchData.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // SECURITY & ANTI-SCREENSHOT HANDLERS
+    const overlay = document.getElementById('securityOverlay');
+    const mainContent = document.getElementById('mainContent');
+
+    function triggerSecurityBlur() {
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      overlay.classList.add('opacity-100', 'pointer-events-auto');
+      mainContent.classList.add('security-blur');
+    }
+
+    function restoreFocus() {
+      overlay.classList.remove('opacity-100', 'pointer-events-auto');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      mainContent.classList.remove('security-blur');
+    }
+
+    // Tab switch / blur detection
+    window.addEventListener('blur', triggerSecurityBlur);
+    window.addEventListener('focus', restoreFocus);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) triggerSecurityBlur();
+      else restoreFocus();
+    });
+
+    // Prevent context menu (right click)
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+    // Intercept Screenshot and Inspector Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'PrintScreen') {
+        triggerSecurityBlur();
+        if (navigator.clipboard) navigator.clipboard.writeText('');
+        e.preventDefault();
+      }
+
+      if (
+        (e.ctrlKey && (e.key === 'p' || e.key === 'u' || e.key === 's')) ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+        e.key === 'F12'
+      ) {
+        e.preventDefault();
+        triggerSecurityBlur();
+      }
+
+      if ((e.metaKey || e.key === 'Meta') && e.shiftKey) {
+        triggerSecurityBlur();
+      }
+    });
+
+    // Handle window resize canvas re-renders
+    window.addEventListener('resize', () => {
+      problemData.forEach((item) => {
+        drawExpressionCanvas(`canvas-prob-${item.id}`, item.expr);
+      });
+    });
+
+    // Initialize on load
+    window.onload = renderProblems;
+  </script>
+</body>
+</html>
